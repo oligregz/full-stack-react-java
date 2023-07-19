@@ -5,7 +5,7 @@ import Input from "../../components/input/Input.jsx";
 const DateBox = () => {
 
   const handleNameChange = () => {
-    console.log("data")
+    console.log("data");
   }
 
   return (

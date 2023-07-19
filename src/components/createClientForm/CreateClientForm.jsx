@@ -8,8 +8,8 @@ const ClientForm = () => {
 
   const handleNameChange = (event) => {
     const value = event.target.value;
-    setName(value);
     console.log(value);
+    setName(value);
   };
 
   const handleRegister = async () => {
@@ -26,8 +26,8 @@ const ClientForm = () => {
         onChange={handleNameChange}
       />
       <Button
-        Type="button"
-        Text="Cadastrar"
+        type="button"
+        text="Cadastrar"
         onClick={handleRegister}
       />
     </div>

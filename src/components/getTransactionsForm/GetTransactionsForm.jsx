@@ -5,12 +5,18 @@ import useAuth from "../../hooks/useAuth";
 import DateBox from "../dateBox/DateBox";
 
 const GetTransactionsForm = () => {
-  const { transaction, setTransaction, searchTransactions } = useAuth();
+  const {
+    transaction,
+    setTransaction,
+    searchTransactions
+  } = useAuth();
 
   const handleNameOperatorChange = async (event) => {
     const value = event.target.value;
     setTransaction((prevState) => ({
       ...prevState,
+      startDate: null,
+      endDate: null,
       operatorName: value,
     }));
   };

@@ -7,7 +7,7 @@ const getTransactions = async (transaction) => {
     const res = await axios.get(url);
     return res.data;
   } catch (e) {
-    throw new Error("List transactions eror: ", e)
+    return {message: "Transactions, not found!"};
   }
 }
 

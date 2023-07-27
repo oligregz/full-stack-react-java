@@ -3,9 +3,6 @@ import React from "react";
 const BoxTransactions = () => {
   return (
     <div>
-      <div className="prices">
-        {`Saldo total: 50.00 R$ - Saldo no período: 100,00 R$`}
-      </div>
       <table class="table">
         <thead>
           <tr>
@@ -17,28 +14,10 @@ const BoxTransactions = () => {
         </thead>
         <tbody>
           <tr>
-            <th scope="row">{`Data`}</th>
-            <td>{`asd`}</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">{`Data`}</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">{`Data`}</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-          <tr>
-            <th scope="row">{`Data`}</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
+            <th scope="row">{`${transaction.data_transferencia}`}</th>
+            <td>{`${transaction.valor}`}</td>
+            <td>{`${transaction.tipo}`}</td>
+            <td>{`${transaction.nome_operador_transacao}`}</td>
           </tr>
         </tbody>
       </table>

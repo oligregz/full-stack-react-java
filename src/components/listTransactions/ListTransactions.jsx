@@ -1,10 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
+import Button from "../button/Button";
 
 const ListTransactions = () => {
   const { transactions } = useAuth();
+  const [startIndex, setStartIndex] = useState(0);
+  const itemsPerPage = 3;
 
-  useEffect(() => {}, [transactions]);
+  useEffect(() => {
+    if (startIndex >= transactions.length) {
+      setStartIndex(transactions.length - itemsPerPage);
+    }
+  }, [startIndex, transactions.length]);
+
+  const handleNext = () => {
+    setStartIndex((prevStartIndex) =>
+      Math.min(prevStartIndex + itemsPerPage, transactions.length - itemsPerPage)
+    );
+  };
+
+  const handlePrev = () => {
+    setStartIndex((prevStartIndex) => Math.max(prevStartIndex - itemsPerPage, 0));
+  };
+
+  const visibleTransactions = transactions.slice(startIndex, startIndex + itemsPerPage);
 
   return (
     <div>
@@ -16,13 +35,13 @@ const ListTransactions = () => {
             {`Saldo total: 50.00 R$ - Saldo no período: 100,00 R$`}
           </div>
           <ul>
-            {transactions.map((transaction) => (
-              <div>
-                <table class="table">
+            {visibleTransactions.map((transaction) => (
+              <div key={transaction.id}>
+                <table className="table">
                   <thead>
                     <tr>
                       <th scope="col">Data</th>
-                      <th scope="col">Valencia</th>
+                      <th scope="col">Valor</th>
                       <th scope="col">Tipo</th>
                       <th scope="col">Nome do operador transacionado</th>
                     </tr>
@@ -40,6 +59,22 @@ const ListTransactions = () => {
               </div>
             ))}
           </ul>
+          <div>
+            <Button
+              type={`button`}
+              onClick={handlePrev}
+              id={`prev-button`}
+              Text={`Previous`}
+              disabled={startIndex === 0}
+            />
+            <Button
+              type={`button`}
+              onClick={handleNext}
+              id={`next-button`}
+              Text={`Next`}
+              disabled={startIndex + itemsPerPage >= transactions.length}
+            />
+          </div>
         </>
       )}
     </div>
@@ -47,17 +82,3 @@ const ListTransactions = () => {
 };
 
 export default ListTransactions;
-
-{
-  /* <li key={transaction.id}>
-  <p>ID: {transaction.id}</p>
-  <p>Data de Transferência: {transaction.data_transferencia}</p>
-  <p>Valor: {transaction.valor}</p>
-  <p>Tipo: {transaction.tipo}</p>
-  <p>
-    {`Nome do Operador de Transação:
-                ${transaction.nome_operador_transacao}`}
-  </p>
-  <p>Conta: {transaction.conta.nome_responsavel}</p>
-</li>; */
-}

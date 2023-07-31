@@ -4,12 +4,8 @@ import Button from "../button/Button";
 import useAuth from "../../hooks/useAuth";
 import DateBox from "../dateBox/DateBox";
 
-const GetTransactionsForm = () => {
-  const {
-    transaction,
-    setTransaction,
-    searchTransactions
-  } = useAuth();
+const GetTransactionsForm = ({ onCadastrarClick }) => {
+  const { transaction, setTransaction, searchTransactions } = useAuth();
 
   const handleNameOperatorChange = async (event) => {
     const value = event.target.value;
@@ -20,7 +16,12 @@ const GetTransactionsForm = () => {
       operatorName: value,
     }));
   };
-  
+
+  const handleCadastrarClick = () => {
+    onCadastrarClick();
+    searchTransactions();
+  };
+
   return (
     <div>
       <Input
@@ -31,7 +32,11 @@ const GetTransactionsForm = () => {
         onChange={handleNameOperatorChange}
       />
       <DateBox />
-      <Button Type="button" Text="Cadastrar" onClick={searchTransactions} />
+      <Button
+        type="button"
+        Text="Cadastrar"
+        onClick={handleCadastrarClick}
+      />
     </div>
   );
 };

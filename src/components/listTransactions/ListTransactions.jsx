@@ -6,6 +6,7 @@ const ListTransactions = () => {
   const { transactions } = useAuth();
   const [startIndex, setStartIndex] = useState(0);
   const itemsPerPage = 3;
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     if (startIndex >= transactions.length) {
@@ -23,7 +24,17 @@ const ListTransactions = () => {
     setStartIndex((prevStartIndex) => Math.max(prevStartIndex - itemsPerPage, 0));
   };
 
-  const visibleTransactions = transactions.slice(startIndex, startIndex + itemsPerPage);
+  const visibleTransactions = () => {
+    if (transactions.length === 0) {
+      if (!showAlert) {
+        setTimeout(() => {
+          setShowAlert(true);
+        }, 10000);
+      }
+      return [];
+    }
+    return transactions.slice(startIndex, startIndex + itemsPerPage);
+  };
 
   return (
     <div>
@@ -35,7 +46,7 @@ const ListTransactions = () => {
             {`Saldo total: 50.00 R$ - Saldo no período: 100,00 R$`}
           </div>
           <ul>
-            {visibleTransactions.map((transaction) => (
+            {visibleTransactions().map((transaction) => (
               <div key={transaction.id}>
                 <table className="table">
                   <thead>
